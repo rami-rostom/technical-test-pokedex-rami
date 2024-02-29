@@ -119,3 +119,59 @@ body {
 
 
 /* --- POKEMON PAGE --- */
+.page__pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--md);
+
+  width: 50%;
+  margin: auto;
+  padding: var(--xl);
+  border: 1px solid rgb(var(--border-rgb));
+  border-radius: var(--xs);
+}
+
+.page__pokemon-name {
+  font-size: var(--lg);
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.page__pokemon-img {
+  width: 15rem;
+  padding: var(--md);
+  border-radius: 50%;
+  background-color: rgb(var(--background-light-rgb));
+}
+
+.page__pokemon-info {
+  display: flex;
+  gap: var(--lg);
+  font-size: var(--sm);
+  font-style: italic;
+}
+
+.page__pokemon-evolution {
+  display: flex;
+  gap: var(--md);
+}
+
+.page__pokemon-evolution-item {
+  text-transform: capitalize;
+  font-weight: 800;
+}
+
+.page__pokemon-evolution-item:hover {
+  opacity: 80%;
+  transition-duration: 300ms;
+}
+
+.page__pokemon-btn {
+  margin-top: var(--lg);
+  font-weight: 800;
+}
+
+.page__pokemon-btn:hover {
+  text-decoration: underline;
+}

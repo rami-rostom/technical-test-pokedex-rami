@@ -18,6 +18,9 @@ const GRAPHQL = graphql`
 
 // TODO: add pagination for results data
 // TODO: add clear input field button in the form
+// TODO: add light and dark mode toggle (style is already adapt for light and dark mode)
+// TODO: work on global style, add more color
+// TODO: add media queries under 600px 
 export const Pokemons = () => {
   const data = useLazyLoadQuery<PokemonsQuery>(GRAPHQL, {});
 

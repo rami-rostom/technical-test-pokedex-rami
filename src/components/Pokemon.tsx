@@ -30,7 +30,11 @@ const GRAPHQL = graphql`
   }
 `
 
-// TODO : Display the informations you want about the Pokemon, add a bit of styling
+// TODO: dynamic style depending on pokemon color (like badge or name)
+// TODO: add Pokemon image in evolution section
+// TODO: add colored style for capture rate. If the rate is low : red. Green if high.
+// TODO: make the page more cheerful, colorful.
+// TODO: add media queries under 600px 
 export const Pokemon = ({ pokemonId }: { pokemonId: number }) => {
   const data = useLazyLoadQuery<PokemonQuery>(GRAPHQL, { pokemonId });
 
@@ -43,24 +47,42 @@ export const Pokemon = ({ pokemonId }: { pokemonId: number }) => {
         <h1>Pokedex</h1>
       </Link>
 
-      <div>
-        <h2>{pokemonData?.name}</h2>
-        <img src={data.sprites?.sprites[0].sprites.front_default} alt={pokemonData?.name} />
-        <p>Génération {pokemonData?.generation?.generationId}</p>
-        <p>Capture rate : {pokemonData?.capture_rate}</p>
+      <div className='page__pokemon'>
+        <h2 className='page__pokemon-name'>{pokemonData?.name}</h2>
 
-        <div>
-          {evolution?.map((pokemon) => (
-            <p key={pokemon.pokemonId}>
-            <Link  href={`/pokemon?id=${pokemon.pokemonId}`}>
-              {pokemon.name}
-            </Link>
-            </p>
-          ))}
+        <img
+          src={data.sprites?.sprites[0].sprites.front_default}
+          alt={pokemonData?.name}
+          className='page__pokemon-img'
+        />
+
+        <div className='page__pokemon-info'>
+          <div className='page__pokemon-info-generation'>
+            Génération {pokemonData?.generation?.generationId}
+          </div>
+
+          <div className='page__pokemon-info-capture'>
+            Taux de capture : {pokemonData?.capture_rate}
+          </div>
         </div>
+
+        {/* Render pokemon evolutions if exist */}
+        {evolution && evolution?.length > 1 && (
+          <div className='page__pokemon-evolution'>
+            {evolution?.map((pokemon) => (
+              <Link
+                key={pokemon.pokemonId}
+                href={`/pokemon?id=${pokemon.pokemonId}`}
+                className='page__pokemon-evolution-item'
+              >
+                {pokemon.name}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
 
-      <button>
+      <button className='page__pokemon-btn'>
         <Link href={'/'}>Retour à l'accueil</Link>
       </button>
     </div>
