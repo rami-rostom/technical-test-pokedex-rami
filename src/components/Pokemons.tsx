@@ -23,16 +23,16 @@ export const Pokemons = () => {
   console.log(data)
 
   return (
-    <div className="p-4">
-      <h1 className="mb-5">Pokemons :</h1>
-      <div className="grid grid-cols-4 gap-4">
+    <div className="homepage">
+      <h1 className="homepage__title">Pokedex</h1>
+      <div className="homepage__pokemons">
         {data.pokemons.map(pokemon => {
           const sprite = pokemon?.sprites[0]?.sprites?.front_default
           return (
-            <div key={pokemon.pokemonId}>
-              <div>Name: {pokemon.name}</div>
-              <img src={sprite} alt={pokemon.name} />
-              <Link href={`/pokemon?id=${pokemon.pokemonId}`}>Infos</Link>
+            <div key={pokemon.pokemonId} className='pokemons__item'>
+              <div className='pokemons__item-name'>Name: {pokemon.name}</div>
+              <img src={sprite} alt={pokemon.name} className='pokemons__item-img' />
+              <Link href={`/pokemon?id=${pokemon.pokemonId}`} className='pokemons__item-link'>Infos</Link>
             </div>
           )
         })}
