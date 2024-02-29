@@ -5,22 +5,24 @@ import Link from 'next/link'
 
 const GRAPHQL = graphql`
   query PokemonQuery($pokemonId: Int!) {
-    pokemon: pokemon_v2_pokemon_by_pk(id: $pokemonId) {
-      name
+    sprites: pokemon_v2_pokemon_by_pk(id: $pokemonId) {
       sprites: pokemon_v2_pokemonsprites {
         sprites
       }
     }
-    details: pokemon_v2_pokemonspecies(where: {id: {_eq: $pokemonId}}) {
+    pokemon: pokemon_v2_pokemonspecies(where: {id: {_eq: $pokemonId}}) {
+      name
       capture_rate
-      pokemon_v2_pokemoncolor {
+      color: pokemon_v2_pokemoncolor {
         name
       }
-      pokemon_v2_generation {
+      generation: pokemon_v2_generation {
+        generationId: id
         name
       }
-      pokemon_v2_evolutionchain {
+      evolution: pokemon_v2_evolutionchain {
         pokemon_v2_pokemonspecies {
+          pokemonId: id
           name
         }
       }
@@ -30,10 +32,10 @@ const GRAPHQL = graphql`
 
 // TODO : Display the informations you want about the Pokemon, add a bit of styling
 export const Pokemon = ({ pokemonId }: { pokemonId: number }) => {
-  const data = useLazyLoadQuery<PokemonQuery>(GRAPHQL, { pokemonId })
+  const data = useLazyLoadQuery<PokemonQuery>(GRAPHQL, { pokemonId });
 
-  // To help
-  console.log(data)
+  const pokemonData = data.pokemon[0];
+  const evolution = pokemonData?.evolution?.pokemon_v2_pokemonspecies;
 
   return (
     <div className='page'>
@@ -41,7 +43,26 @@ export const Pokemon = ({ pokemonId }: { pokemonId: number }) => {
         <h1>Pokedex</h1>
       </Link>
 
-      <img src={data.pokemon?.sprites[0].sprites.front_default} alt={data.pokemon?.name} />
+      <div>
+        <h2>{pokemonData?.name}</h2>
+        <img src={data.sprites?.sprites[0].sprites.front_default} alt={pokemonData?.name} />
+        <p>Génération {pokemonData?.generation?.generationId}</p>
+        <p>Capture rate : {pokemonData?.capture_rate}</p>
+
+        <div>
+          {evolution?.map((pokemon) => (
+            <p key={pokemon.pokemonId}>
+            <Link  href={`/pokemon?id=${pokemon.pokemonId}`}>
+              {pokemon.name}
+            </Link>
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <button>
+        <Link href={'/'}>Retour à l'accueil</Link>
+      </button>
     </div>
   )
 }
