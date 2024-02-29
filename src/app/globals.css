@@ -37,19 +37,21 @@ body {
   }
 }
 
-/* --- HOMEPAGE --- */
-.homepage {
+/* --- GLOBAL PAGE --- */
+.page {
   display: flex;
   flex-direction: column;
 }
 
-.homepage__title {
+.page__title {
   font-size: var(--xxl);
   text-transform: uppercase;
   margin: var(--lg) auto;
 }
 
-.homepage__pokemons {
+
+/* --- POKEMONS PAGE --- */
+.page__pokemons {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   grid-gap: var(--xl);
@@ -94,8 +96,8 @@ body {
   transition-duration: 300ms;
 }
 
-/* --- SEARCH BAR --- */
-.homepage__search {
+/* --- Search bar --- */
+.page__search {
   margin: auto;
   width: 50%;
   padding: var(--xxs);
@@ -103,7 +105,7 @@ body {
   border-radius: var(--xs);
 }
 
-.homepage__search-input {
+.page__search-input {
   width: 100%;
   background-color: rgb(var(--background-rgb));
   border-radius: var(--xs);
@@ -111,6 +113,9 @@ body {
   font-size: var(--sm);
 }
 
-.homepage__result {
+.page__result {
   margin: var(--sm) auto;
 }
+
+
+/* --- POKEMON PAGE --- */

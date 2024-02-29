@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { graphql, useLazyLoadQuery } from 'react-relay'
 import { PokemonQuery } from '../../__generated__/PokemonQuery.graphql'
+import Link from 'next/link'
 
 const GRAPHQL = graphql`
   query PokemonQuery($pokemonId: Int!) {
@@ -9,8 +10,19 @@ const GRAPHQL = graphql`
       sprites: pokemon_v2_pokemonsprites {
         sprites
       }
-      specy: pokemon_v2_pokemonspecy {
-        is_legendary
+    }
+    details: pokemon_v2_pokemonspecies(where: {id: {_eq: $pokemonId}}) {
+      capture_rate
+      pokemon_v2_pokemoncolor {
+        name
+      }
+      pokemon_v2_generation {
+        name
+      }
+      pokemon_v2_evolutionchain {
+        pokemon_v2_pokemonspecies {
+          name
+        }
       }
     }
   }
@@ -24,8 +36,11 @@ export const Pokemon = ({ pokemonId }: { pokemonId: number }) => {
   console.log(data)
 
   return (
-    <div>
-      Legendary : {data.pokemon?.specy?.is_legendary ? 'Yes' : 'No'}
+    <div className='page'>
+      <Link href={'/'} className="page__title">
+        <h1>Pokedex</h1>
+      </Link>
+
       <img src={data.pokemon?.sprites[0].sprites.front_default} alt={data.pokemon?.name} />
     </div>
   )

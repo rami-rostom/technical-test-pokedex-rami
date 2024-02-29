@@ -30,15 +30,15 @@ export const Pokemons = () => {
   const searchResult = data.pokemons.filter((pokemon) => pokemon.name.includes(searchValue));
 
   return (
-    <div className="homepage">
-      <Link href={'/'} className="homepage__title">
+    <div className="page">
+      <Link href={'/'} className="page__title">
         <h1>Pokedex</h1>
       </Link>
 
-      <form className="homepage__search">
+      <form className="page__search">
         <input
           type="text"
-          className="homepage__search-input"
+          className="page__search-input"
           placeholder="Rechercher un Pokemon"
           value={searchValue}
           onChange={handleChangeValue}
@@ -48,11 +48,11 @@ export const Pokemons = () => {
       {/* Dynamic render of Pokemons list depending of searchResult value */}
       {searchValue ? (
         <>
-        <div className='homepage__result'>
+        <div className='page__result'>
           <p>{searchResult.length} Pokémon correspondant à votre recherche.</p>
         </div>
 
-        <div className="homepage__pokemons">
+        <div className="page__pokemons">
         {searchResult.map(pokemon => {
           const sprite = pokemon?.sprites[0]?.sprites?.front_default
           return (
@@ -66,7 +66,7 @@ export const Pokemons = () => {
       </div>
       </>
       ) : (
-        <div className="homepage__pokemons">
+        <div className="page__pokemons">
           {data.pokemons.map(pokemon => {
             const sprite = pokemon?.sprites[0]?.sprites?.front_default
             return (
