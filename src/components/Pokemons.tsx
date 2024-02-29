@@ -31,7 +31,9 @@ export const Pokemons = () => {
 
   return (
     <div className="homepage">
-      <h1 className="homepage__title">Pokedex</h1>
+      <Link href={'/'} className="homepage__title">
+        <h1>Pokedex</h1>
+      </Link>
 
       <form className="homepage__search">
         <input
