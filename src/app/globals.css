@@ -110,3 +110,7 @@ body {
   padding: var(--xxs) var(--md);
   font-size: var(--sm);
 }
+
+.homepage__result {
+  margin: var(--sm) auto;
+}

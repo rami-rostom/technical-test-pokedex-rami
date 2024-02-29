@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { graphql, useLazyLoadQuery } from 'react-relay'
 import { PokemonsQuery } from '../../__generated__/PokemonsQuery.graphql'
 import Link from 'next/link'
@@ -14,20 +14,20 @@ const GRAPHQL = graphql`
       }
     }
   }
-`
+`;
 
-// TODO : Add a bit of styling
+// TODO: add pagination for results data
+// TODO: add clear input field button in the form
 export const Pokemons = () => {
-  const data = useLazyLoadQuery<PokemonsQuery>(GRAPHQL, {})
-
-  // To help
-  console.log(data)
+  const data = useLazyLoadQuery<PokemonsQuery>(GRAPHQL, {});
 
   const [searchValue, setSearchValue] = useState("");
 
-  const handleChangeValue = (event) => {
-    console.log(event);
+  const handleChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
   }
+
+  const searchResult = data.pokemons.filter((pokemon) => pokemon.name.includes(searchValue));
 
   return (
     <div className="homepage">
@@ -43,8 +43,15 @@ export const Pokemons = () => {
         />
       </form>
 
-      <div className="homepage__pokemons">
-        {data.pokemons.map(pokemon => {
+      {/* Dynamic render of Pokemons list depending of searchResult value */}
+      {searchValue ? (
+        <>
+        <div className='homepage__result'>
+          <p>{searchResult.length} Pokémon correspondant à votre recherche.</p>
+        </div>
+
+        <div className="homepage__pokemons">
+        {searchResult.map(pokemon => {
           const sprite = pokemon?.sprites[0]?.sprites?.front_default
           return (
             <div key={pokemon.pokemonId} className='pokemons__item'>
@@ -55,8 +62,23 @@ export const Pokemons = () => {
           )
         })}
       </div>
+      </>
+      ) : (
+        <div className="homepage__pokemons">
+          {data.pokemons.map(pokemon => {
+            const sprite = pokemon?.sprites[0]?.sprites?.front_default
+            return (
+              <div key={pokemon.pokemonId} className='pokemons__item'>
+                <div className='pokemons__item-name'>{pokemon.name}</div>
+                <img src={sprite} alt={pokemon.name} className='pokemons__item-img' />
+                <Link href={`/pokemon?id=${pokemon.pokemonId}`} className='pokemons__item-link'>Plus de détails</Link>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
 
-export default Pokemons
+export default Pokemons;
