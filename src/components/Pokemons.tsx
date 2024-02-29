@@ -30,9 +30,9 @@ export const Pokemons = () => {
           const sprite = pokemon?.sprites[0]?.sprites?.front_default
           return (
             <div key={pokemon.pokemonId} className='pokemons__item'>
-              <div className='pokemons__item-name'>Name: {pokemon.name}</div>
+              <div className='pokemons__item-name'>{pokemon.name}</div>
               <img src={sprite} alt={pokemon.name} className='pokemons__item-img' />
-              <Link href={`/pokemon?id=${pokemon.pokemonId}`} className='pokemons__item-link'>Infos</Link>
+              <Link href={`/pokemon?id=${pokemon.pokemonId}`} className='pokemons__item-link'>Plus de détails</Link>
             </div>
           )
         })}
