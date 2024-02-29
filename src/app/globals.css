@@ -6,7 +6,7 @@
   --foreground-rgb: 23, 23, 23;
   --background-rgb: 248, 254, 255;
   --border-rgb: 23, 23, 23;
-  --bg-img-rgb: 236, 236, 236;
+  --background-light-rgb: 236, 236, 236;
 
   --xxs: 0.3rem;
   --xs: 0.5rem;
@@ -22,7 +22,7 @@
     --foreground-rgb: 248, 254, 255;
     --background-rgb: 23, 23, 23;
     --border-rgb: 248, 254, 255;
-    --bg-img-rgb: 35, 35, 35;
+    --background-light-rgb: 35, 35, 35;
   }
 }
 
@@ -41,20 +41,18 @@ body {
 .homepage {
   display: flex;
   flex-direction: column;
-  margin: var(--md) 0;
 }
 
 .homepage__title {
   font-size: var(--xxl);
   text-transform: uppercase;
-  margin: auto;
+  margin: var(--lg) auto;
 }
 
 .homepage__pokemons {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   grid-gap: var(--xl);
-  padding: var(--md);
   margin: var(--xl) calc(var(--xl) * 4);
 }
 
@@ -84,7 +82,7 @@ body {
   width: 8rem;
   padding: var(--md);
   border-radius: 50%;
-  background-color: rgb(var(--bg-img-rgb));
+  background-color: rgb(var(--background-light-rgb));
 }
 
 .pokemons__item-link {
@@ -94,4 +92,21 @@ body {
 .pokemons__item-link:hover {
   opacity: 80%;
   transition-duration: 300ms;
+}
+
+/* --- SEARCH BAR --- */
+.homepage__search {
+  margin: auto;
+  width: 50%;
+  padding: var(--xxs);
+  border: 1px solid rgb(var(--border-rgb));
+  border-radius: var(--xs);
+}
+
+.homepage__search-input {
+  width: 100%;
+  background-color: rgb(var(--background-rgb));
+  border-radius: var(--xs);
+  padding: var(--xxs) var(--md);
+  font-size: var(--sm);
 }

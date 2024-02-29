@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from 'react'
 import { graphql, useLazyLoadQuery } from 'react-relay'
 import { PokemonsQuery } from '../../__generated__/PokemonsQuery.graphql'
 import Link from 'next/link'
@@ -22,9 +23,26 @@ export const Pokemons = () => {
   // To help
   console.log(data)
 
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleChangeValue = (event) => {
+    console.log(event);
+  }
+
   return (
     <div className="homepage">
       <h1 className="homepage__title">Pokedex</h1>
+
+      <form className="homepage__search">
+        <input
+          type="text"
+          className="homepage__search-input"
+          placeholder="Rechercher un Pokemon"
+          value={searchValue}
+          onChange={handleChangeValue}
+        />
+      </form>
+
       <div className="homepage__pokemons">
         {data.pokemons.map(pokemon => {
           const sprite = pokemon?.sprites[0]?.sprites?.front_default
